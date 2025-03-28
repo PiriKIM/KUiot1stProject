@@ -19,6 +19,14 @@ typedef struct
     int port;
 } MySQLConnection;
 
+typedef struct {
+    int temperature; // 온도
+    int humidity;    // 습도
+    int soil;        // 토양수분
+    int sun;         // 일조량
+    char cond[10];        // 상태
+} SensorData;
+
 
 // MySQL 연결 초기화 및 연결 함수
 bool initMySQL(MySQLConnection *mysql);

@@ -1,0 +1,22 @@
+[
+{
+  "directory": "/home/lws/KUiot1stProject/cProgram/build",
+  "command": "/usr/bin/gcc -I/home/lws/KUiot1stProject/cProgram/include -I/usr/include/mysql -g -o CMakeFiles/cProgram.dir/src/farmsql.c.o -c /home/lws/KUiot1stProject/cProgram/src/farmsql.c",
+  "file": "/home/lws/KUiot1stProject/cProgram/src/farmsql.c"
+},
+{
+  "directory": "/home/lws/KUiot1stProject/cProgram/build",
+  "command": "/usr/bin/gcc -I/home/lws/KUiot1stProject/cProgram/include -I/usr/include/mysql -g -o CMakeFiles/cProgram.dir/src/pthread.c.o -c /home/lws/KUiot1stProject/cProgram/src/pthread.c",
+  "file": "/home/lws/KUiot1stProject/cProgram/src/pthread.c"
+},
+{
+  "directory": "/home/lws/KUiot1stProject/cProgram/build",
+  "command": "/usr/bin/gcc -I/home/lws/KUiot1stProject/cProgram/include -I/usr/include/mysql -g -o CMakeFiles/cProgram.dir/src/main.c.o -c /home/lws/KUiot1stProject/cProgram/src/main.c",
+  "file": "/home/lws/KUiot1stProject/cProgram/src/main.c"
+},
+{
+  "directory": "/home/lws/KUiot1stProject/cProgram/build",
+  "command": "/usr/bin/gcc -I/home/lws/KUiot1stProject/cProgram/include -I/usr/include/mysql -g -o CMakeFiles/cProgram.dir/src/serial.c.o -c /home/lws/KUiot1stProject/cProgram/src/serial.c",
+  "file": "/home/lws/KUiot1stProject/cProgram/src/serial.c"
+}
+]

@@ -1,6 +1,7 @@
 #include "farmsql.h"
 #include "serial.h"
-#include "uart0.h"
+#include <pthread.h>
+#include "thread.h"
 
 // 운영체제 확인을 위한 매크로 추가
 // #ifdef _WIN32
@@ -54,9 +55,9 @@ int main() {
     }
 
     while (i < 10) {
-        receive_serial_data(port, tx); // 데이터 수신 및 저장
-        args.mysql = mysql;
-        args.data = rx;
+        receive_serial_data(port, &tx); // 데이터 수신 및 저장
+        args.mysql = &mysql;
+        args.data = &rx;
         // pthread를 사용해 스레드 생성
         pthread_create(&save_thread, NULL, saveDataThread, &args);
         // 스레드 종료 대기
@@ -65,8 +66,7 @@ int main() {
         i++; 
     }
 
-    closeMySQL(mysql);
-    sp_close(port);
-    sp_free_port(port);
+    closeMySQL(&mysql);
+
     return 0;
 }

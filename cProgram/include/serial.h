@@ -6,13 +6,7 @@
 #include <pthread.h>
 //atmeega128 uart 설정 헤더 추가 필요할듯?
 
-typedef struct {
-    uint16_t temperature; // 온도
-    uint16_t humidity;    // 습도
-    uint16_t soil;        // 토양수분
-    uint16_t sun;         // 일조량
-    uint16_t cond;        // 상태
-} SensorData;
+
 
 // 시리얼 포트 설정 함수
 struct sp_port *setup_serial_port(const char *port_name);

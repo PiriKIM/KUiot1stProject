@@ -1,0 +1,7 @@
+# ninja log v5
+1	54	1743146981534441844	CMakeFiles/cProgram.dir/src/main.c.o	2f497bbf803d1af5
+0	60	1743146526399265286	CMakeFiles/cProgram.dir/src/farmsql.c.o	dd167af92a17edab
+0	46	1743147169050842672	CMakeFiles/cProgram.dir/src/pthread.c.o	b0cab984119b0c78
+1	48	1743147169053842646	CMakeFiles/cProgram.dir/src/serial.c.o	c4416b2712122cf
+0	47	1743147332770439792	CMakeFiles/cProgram.dir/src/serial.c.o	c4416b2712122cf
+47	138	1743147332860439019	cProgram	ccedd1c863145086
