@@ -51,8 +51,8 @@ int main(void)
     stdin = &INPUT;
     stdout = &OUTPUT;
     i2c_lcd_init();
-    char str0[16] = "CDS:00/Soil:000%%";
-    char str1[16] = "T:--.-C/Hu:--.-%%";
+    char str0[16] = "CDS:00/Soil:0%%";
+    char str1[16] = "T:-.-C/Hu:-.-%%";
 
     i2c_lcd_string(0, 0, str0);
     i2c_lcd_string(1, 0, str1);
@@ -69,8 +69,13 @@ int main(void)
             DHT11_Read_Dec(&temperature, &humidity, &temp_dec, &humi_dec); // 온습도 측정 (디지털)
             sprintf(str0, "CDS:%02u/Soil:%u%%   ", light_value, moisture_value);
             i2c_lcd_string(0, 0, str0);
-            sprintf(str1, "T:%u.%uC/Hu:%u.%u%%  ", temperature, temp_dec, humidity, humi_dec);
+            sprintf(str1, "T:%u.%uC/Hu:%u%%  ", temperature, temp_dec, humidity);
             i2c_lcd_string(1, 0, str1);
+
+            // uart출력
+            printf("CDS: %02u\tSoil: %u%%\r\n", light_value, moisture_value);
+            printf("Temp: %u°C\tHumidity: %u%%\r\n", temperature, temp_dec, humidity, humi_dec);
+            printf("--------------------------------\r\n");
         }
 
         if (cds_value > 900)
@@ -112,13 +117,9 @@ int main(void)
             OCR3A = motorPulse;
             pulseFlag = 0;
         }
-
-        // uart출력
-        printf("CDS: %02u\tSoil: %u%%\r\n", light_value, moisture_value);
-        printf("Temp: %u.%u°C\tHumidity: %u.%u%%\r\n", temperature, temp_dec, humidity, humi_dec);
-        printf("--------------------------------\r\n");
-        _delay_ms(3000);
     }
+
+    return 0;
 }
 
 // ADC 값 읽기 (0~1023)
