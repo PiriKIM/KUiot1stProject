@@ -1,5 +1,6 @@
 #include "farmsql.h"
 #include "serial.h"
+//#include <libserialport.h>
 
 // 시리얼 포트 설정 함수   ATmega uart 송수신 설정값과 동일하게 셋팅 필요
 struct sp_port *setup_serial_port(const char *port_name) {
@@ -35,11 +36,11 @@ void *receive_serial_data(struct sp_port *port, SensorData *rx) {
     if (bytes_read == sizeof(SensorData)) {
         // 데이터 수신 성공: 구조체 값 출력
         printf("Received serial data:\n");
-        printf("  Temperature: %d\n", rx.temperature);
-        printf("  Humidity: %d\n", rx.humidity);
-        printf("  Soil: %d\n", rx.soil);
-        printf("  Light: %d\n", rx.sun);
-        printf("  Light: %d\n", rx.cond);
+        printf("  Temperature: %d\n", rx->temperature);
+        printf("  Humidity: %d\n", rx->humidity);
+        printf("  Soil: %d\n", rx->soil);
+        printf("  Light: %d\n", rx->sun);
+        printf("  Light: %s\n", rx->cond);
     } else if (bytes_read > 0) {
         // 부분적으로 데이터 수신
         printf("Partial data received (%d of %lu bytes)\n", bytes_read, sizeof(SensorData));
