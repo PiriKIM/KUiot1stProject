@@ -16,6 +16,9 @@ CREATE TABLE IF NOT EXISTS data_records (
 );
 
 USE smartfarm_db;
+SELECT * FROM data_records;
+
+USE smartfarm_db;
 SELECT DATE_FORMAT(RecordTime, '%Y-%m-%d %H:%i:%s') AS formatted_time
 FROM data_records;
 SELECT * FROM data_records;

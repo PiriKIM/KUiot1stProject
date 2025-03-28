@@ -9,7 +9,7 @@ void *saveDataThread(void *arg) {
 
     //pthread_mutex_unlock(&lock); // 자원 보호 해제
 
-    free(data_args);
+    //free(data_args);
 
 
     return NULL;

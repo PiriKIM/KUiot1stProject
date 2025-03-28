@@ -47,23 +47,28 @@ bool saveData(MySQLConnection *mysql, SensorData *rx)
     char query[512];
 
     // 현재 날짜 가져오기
-    time_t t = time(NULL);
-    struct tm *tm = localtime(&t);
-    char time[30];
-    strftime(time, sizeof(time), "%Y-%m-%d %H:%M:%S", tm);
+    // time_t t = time(NULL);
+    // struct tm *tm = localtime(&t);
+    // char time[30];
+    // strftime(time, sizeof(time), "%Y-%m-%d %H:%M:%S", tm);
 
-    // 쿼리 준비
-    snprintf(query, sizeof(query), "INSERT INTO data_records (RecordTime, Temperature, Humidity, SoilMoisture, Sunshine, Cond) VALUES ('%s', %d, %d, %d, %d, '%s')",
-             time, rx->temperature, rx->humidity, rx->soil, rx->sun, rx->cond);
-
-    // 쿼리 실행
-    if (mysql_query(mysql->conn, query))
+    if (rx->temperature >= 0 && rx->humidity >= 0 && rx->soil >= 0 && rx->sun >= 0)
     {
-        fprintf(stderr, "Data 저장 실패: %s\n", mysql_error(mysql->conn));
-        return false;
+        // 쿼리 준비
+        snprintf(query, sizeof(query), "USE smartfarm_db; INSERT INTO data_records (Temperature, Humidity, SoilMoisture, Sunshine, Cond) VALUES (%d, %d, %d, %d, '%s');",
+                 rx->temperature, rx->humidity, rx->soil, rx->sun, rx->cond);
+        printf("%s\r\n", query);
+
+        // 쿼리 실행
+        if (mysql_query(mysql->conn, query))
+        {
+            fprintf(stderr, "Data 저장 실패: %s\n", mysql_error(mysql->conn));
+            return false;
+        }
+        printf("Data가 성공적으로 저장되었습니다!\n");
     }
 
-    printf("Data가 성공적으로 저장되었습니다!\n");
+    // printf("saveData 정상 완료하였습니다!\n");
     return true;
 }
 

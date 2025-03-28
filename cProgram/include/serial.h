@@ -4,8 +4,9 @@
 #include "farmsql.h"
 #include <libserialport.h>
 #include <pthread.h>
-//atmeega128 uart 설정 헤더 추가 필요할듯?
 
+#define PORT_NAME "/dev/ttyUSB0"  // 사용 중인 포트로 변경
+#define BAUDRATE 115200
 
 
 // 시리얼 포트 설정 함수
