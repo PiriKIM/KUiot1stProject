@@ -21,6 +21,6 @@ struct sp_port *setup_serial_port(const char *port_name);
 void *send_serial_data(struct sp_port *port, SensorData *tx);
 
 // 시리얼 데이터 수신 함수
-void *receive_serial_data(struct sp_port *portarg, uint16_t *buffer);
+void *receive_serial_data(struct sp_port *port, uint16_t *buffer);
 
 #endif 
