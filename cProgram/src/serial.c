@@ -38,7 +38,8 @@ void *receive_serial_data(struct sp_port *port, SensorData *rx) {
         printf("  Temperature: %d\n", rx.temperature);
         printf("  Humidity: %d\n", rx.humidity);
         printf("  Soil: %d\n", rx.soil);
-        printf("  Light: %d\n", rx.light);
+        printf("  Light: %d\n", rx.sun);
+        printf("  Light: %d\n", rx.cond);
     } else if (bytes_read > 0) {
         // 부분적으로 데이터 수신
         printf("Partial data received (%d of %lu bytes)\n", bytes_read, sizeof(SensorData));
