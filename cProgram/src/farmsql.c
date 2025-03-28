@@ -53,7 +53,7 @@ bool saveData(MySQLConnection *mysql, SensorData *rx)
     strftime(time, sizeof(time), "%Y-%m-%d %H:%M:%S", tm);
 
     // 쿼리 준비
-    snprintf(query, sizeof(query), "INSERT INTO data_records (Time, Temperature, Humidity, SoilMoisture, Sunshine, Cond) VALUES ('%s', %d, %d, %d, %d, '%s')",
+    snprintf(query, sizeof(query), "INSERT INTO data_records (RecordTime, Temperature, Humidity, SoilMoisture, Sunshine, Cond) VALUES ('%s', %d, %d, %d, %d, '%s')",
              time, rx->temperature, rx->humidity, rx->soil, rx->sun, rx->cond);
 
     // 쿼리 실행

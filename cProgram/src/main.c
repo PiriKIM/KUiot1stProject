@@ -31,13 +31,14 @@
 int main() {
     const char *port_name = "/dev/ttyUSB0"; // 시리얼 포트 이름
     struct sp_port *port = setup_serial_port(port_name);
-    uint16_t buffer[10];     // 수신데이터 저장
+    // uint16_t buffer[10];     // 수신데이터 저장
     SaveDataArgs args;       // sql, sensordata 넣는 구조체
     pthread_t save_thread;   // pthread ID"/dev/ttyUSB0";
     MySQLConnection mysql;
     int choice;
     bool dbConnected = false;
     SensorData rx;
+    SensorData tx;
     int i = 0;
 
     // MySQL 연결 시도
@@ -52,8 +53,8 @@ int main() {
         return -1;
     }
 
-    while (i = 10) {
-        receive_serial_data(port, buffer); // 데이터 수신 및 저장
+    while (i < 10) {
+        receive_serial_data(port, tx); // 데이터 수신 및 저장
         args.mysql = mysql;
         args.data = rx;
         // pthread를 사용해 스레드 생성
