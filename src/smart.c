@@ -48,6 +48,8 @@ int main(void)
     sei();                      // 전역 인터럽트 활성화
 
     uart0_init();
+    stdin = &INPUT;
+    stdout = &OUTPUT;
     i2c_lcd_init();
     char str0[16] = "CDS:00/Soil:000%%";
     char str1[16] = "T:--.-C/Hu:--.-%%";
@@ -110,6 +112,12 @@ int main(void)
             OCR3A = motorPulse;
             pulseFlag = 0;
         }
+
+        // uart출력
+        printf("CDS: %02u\tSoil: %u%%\r\n", light_value, moisture_value);
+        printf("Temp: %u.%u°C\tHumidity: %u.%u%%\r\n", temperature, temp_dec, humidity, humi_dec);
+        printf("--------------------------------\r\n");
+        _delay_ms(3000);
     }
 }
 
