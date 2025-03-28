@@ -11,7 +11,7 @@
 
 uint16_t ADC_Read(uint8_t channel);
 
-volatile uint8_t sensorFlag = 0, pulseFlag = 0, pulseCount = 0;
+volatile uint8_t sensorFlag = 0, pulseFlag = 0, pulseCount = 0, uartSendCount = 0;
 
 int main(void)
 {
@@ -71,11 +71,13 @@ int main(void)
             i2c_lcd_string(0, 0, str0);
             sprintf(str1, "T:%u.%uC/Hu:%u%%  ", temperature, temp_dec, humidity);
             i2c_lcd_string(1, 0, str1);
+        }
 
+        if (uartSendCount == 20)
+        {
             // uart출력
-            printf("CDS: %02u\tSoil: %u%%\r\n", light_value, moisture_value);
-            printf("Temp: %u°C\tHumidity: %u%%\r\n", temperature, temp_dec, humidity, humi_dec);
-            printf("--------------------------------\r\n");
+            printf("CDS:%u,Soil:%u,Temp:%u,Humidity:%u,\r\n", light_value, moisture_value, temperature, humidity);
+            uartSendCount = 0;
         }
 
         if (cds_value > 900)
@@ -131,10 +133,11 @@ uint16_t ADC_Read(uint8_t channel)
     return ADC;
 }
 
-// DHT11 온습도 측정 센서 ON
+// 1초마다 측정 센서 ON
 ISR(TIMER1_COMPA_vect) 
 {
     sensorFlag = 1;
+    uartSendCount++;
 }
 
 // 서보모터 pulse 간격 딜레이

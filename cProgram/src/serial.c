@@ -31,7 +31,7 @@ void *send_serial_data(struct sp_port *port, SensorData *tx) {
 // 시리얼 데이터 수신 함수
 void *receive_serial_data(struct sp_port *port, SensorData *rx) {
     
-    int bytes_read = sp_blocking_read(port, rx, sizeof(SensorData), 1000); // 데이터를 읽음
+    int bytes_read = sp_blocking_read(port, rx, sizeof(SensorData), 10000); // 데이터를 읽음
 
     if (bytes_read == sizeof(SensorData)) {
         // 데이터 수신 성공: 구조체 값 출력

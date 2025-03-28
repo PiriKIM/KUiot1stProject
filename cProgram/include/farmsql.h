@@ -24,7 +24,7 @@ typedef struct {
     int humidity;    // 습도
     int soil;        // 토양수분
     int sun;         // 일조량
-    char cond[10];        // 상태
+    char cond[10];   // 상태
 } SensorData;
 
 

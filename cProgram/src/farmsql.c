@@ -8,7 +8,7 @@ bool initMySQL(MySQLConnection *mysql)
     // 기본 연결 정보 설정
     mysql->host = "localhost";
     mysql->user = "myuser";
-    mysql->pass = "0000";
+    mysql->pass = "1017";
     mysql->db = "smartfarm_db";
     mysql->port = 3306;
 

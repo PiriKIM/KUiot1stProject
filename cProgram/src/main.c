@@ -3,32 +3,6 @@
 #include <pthread.h>
 #include "thread.h"
 
-// 운영체제 확인을 위한 매크로 추가
-// #ifdef _WIN32
-// #define CLEAR_SCREEN "cls"
-// #else
-// #define CLEAR_SCREEN "clear"
-// #endif
-
-// 메뉴 상수 정의를 enum으로 변경
-// typedef enum
-// {
-//     VIEW_HISTORY = 1,
-//     MONTHLY_STATS, 
-//     EXIT = 0
-// } MenuOption;
-
-// // 메뉴 출력 함수
-// void printMenu()
-// {
-//     system(CLEAR_SCREEN);
-//     printf("=== SmartFarm DB 시스템 ===\n");
-//     printf("1. 기록 보기\n");
-//     printf("2. 월별 통계 보기\n"); 
-//     printf("0. 종료\n");
-//     printf("선택: ");
-// }
-
 int main() {
     const char *port_name = "/dev/ttyUSB0"; // 시리얼 포트 이름
     struct sp_port *port = setup_serial_port(port_name);
