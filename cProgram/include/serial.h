@@ -16,6 +16,9 @@ struct sp_port *setup_serial_port(const char *port_name);
 void *send_serial_data(struct sp_port *port, SensorData *tx);
 
 // 시리얼 데이터 수신 함수
-void *receive_serial_data(struct sp_port *port, SensorData *tx);
+void *receive_serial_data(struct sp_port *port, SensorData *rx);
+
+// 액츄에이터 제어 메시지 전송
+void send_actuator(struct sp_port *port, const char *message);
 
 #endif 

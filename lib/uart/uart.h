@@ -18,6 +18,7 @@
  unsigned char uart0_receive(void);
  void uart0PrintString(char *str);
  void uart0Print1ByteNumber(unsigned char n);
+ char uart0_receiveActuator(void);
  
  
  extern FILE OUTPUT;

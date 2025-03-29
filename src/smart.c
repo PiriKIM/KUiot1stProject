@@ -50,6 +50,9 @@ int main(void)
     uart0_init();
     stdin = &INPUT;
     stdout = &OUTPUT;
+
+    char received;
+
     i2c_lcd_init();
     char str0[16] = "CDS:00/Soil:0%%";
     char str1[16] = "T:-.-C/Hu:-.-%%";
@@ -59,6 +62,8 @@ int main(void)
 
     while (1)
     {
+        received = '\0';
+
         if (sensorFlag)
         {
             sensorFlag = 0;
@@ -80,19 +85,28 @@ int main(void)
             uartSendCount = 0;
         }
 
-        if (cds_value > 900)
-        {
-            PORTB |= (1 << RELAY_PIN);  // 릴레이 ON
-            
-        }
-        else
-        {
-            PORTB &= ~(1 << RELAY_PIN); // 릴레이 OFF
-        }
+        received = uart0_receiveActuator();
 
-        if (moisture_value < 30)    // 서보모터에 달린 수조에 물 공급
-        {
-            motorFlag = 1;          // 서보모터 ON
+        if (received != '\0')
+        { // 수신 데이터가 있을 때만 처리
+            if (received == '3')
+            {
+                PORTB |= (1 << RELAY_PIN); // 릴레이 ON
+                motorFlag = 1;             // 서보모터 ON
+            }
+            else if (received == '2')
+            {
+                PORTB &= ~(1 << RELAY_PIN); // 릴레이 OFF
+                motorFlag = 1;              // 서보모터 ON
+            }
+            else if (received == '1')
+            {
+                PORTB |= (1 << RELAY_PIN); // 릴레이 ON
+            }
+            else if (received == '0')
+            {
+                PORTB &= ~(1 << RELAY_PIN); // 릴레이 OFF
+            }
         }
 
         if (motorFlag && pulseFlag)

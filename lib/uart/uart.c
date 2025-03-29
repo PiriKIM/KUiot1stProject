@@ -39,7 +39,7 @@ void uart0_init(void) {
     UCSR0C |= (1 << UCSZ01) | (1 << UCSZ00); // 8-bit, no parity, 1 stop bit
 
     UBRR0H = 0;
-    UBRR0L = 15;  // ← 115200bps, 16MHz, 2배속 모드 정확한 값!!
+    UBRR0L = 15;  // ← 115200bps, 16MHz, 2배속 모드 정확한 값!! (16MHz / (8 * 115200) - 1)
 
     stdin = &INPUT;
     stdout = &OUTPUT;
@@ -85,4 +85,13 @@ void uart0Print1ByteNumber(unsigned char n)
     }
     for (i = index; i >= 0; i--)
     uart0_trasnmit(numString[i], NULL);
+}
+
+char uart0_receiveActuator(void)
+{
+    if (UCSR0A & (1 << RXC0))  // 데이터가 있으면
+    {
+        return UDR0;  // 수신된 데이터 반환
+    }
+    return '\0';  // 데이터가 없으면 0 반환 (혹은 다른 값으로 설정 가능)
 }

@@ -2,19 +2,14 @@
 #include "serial.h"
 
 // 시리얼 포트 설정 함수   ATmega uart 송수신 설정값과 동일하게 셋팅 필요
-struct sp_port *setup_serial_port(const char *port_name) {
-    // struct sp_port *port;
-    // sp_get_port_by_name(port_name, &port);
-    // sp_open(port, SP_MODE_READ_WRITE);  //SP_MODE_READ_WRITE는 상수로 정의된 값
-    // sp_set_baudrate(port, 115200);  // Baud rate 설정
-    // printf("Serial port %s opened successfully.\n", port_name);
-
+struct sp_port *setup_serial_port(const char *port_name)
+{
     struct sp_port *port;
     sp_get_port_by_name(PORT_NAME, &port);
 
-    if (sp_open(port, SP_MODE_READ) != SP_OK) {
+    if (sp_open(port, SP_MODE_READ_WRITE) != SP_OK) {
         printf("포트를 열 수 없습니다.\n");
-        return 1;
+        return NULL;
     }
 
     sp_set_baudrate(port, BAUDRATE);
@@ -28,7 +23,7 @@ struct sp_port *setup_serial_port(const char *port_name) {
     return port;
 }
 
-// 시리얼 데이터 전송    아마 사용안 할 듯?
+// 시리얼 데이터 전송
 void *send_serial_data(struct sp_port *port, SensorData *tx) {
     int tx_bytes;
 
@@ -80,20 +75,53 @@ void *receive_serial_data(struct sp_port *port, SensorData *rx) {
             token = strtok(NULL, ",");
         }
     }
+
     rx->temperature = temp;
     rx->humidity = humidity;
     rx->soil = soil;
     rx->sun = cds;
-    strcpy(rx->cond, "good");
-    if (rx->temperature >= 0 && rx->humidity >= 0 && rx->soil >= 0 && rx->sun >= 0)
-    {
-        // 데이터 수신 성공: 구조체 값 출력
-        printf("Received serial data:\n");
-        printf("  temperature: %d\n", rx->temperature);
-        printf("  humidity: %d\n", rx->humidity);
-        printf("  soil: %d\n", rx->soil);
-        printf("  sun: %d\n", rx->sun);
-        printf("  cond: %s\n", rx->cond);
+
+    // if (temp < 3)
+    //     strcpy(rx->cond, "cold");
+    // else if (temp > 36)
+    //     strcpy(rx->cond, "hot");
+    // else if (humidity < 10)
+    //     strcpy(rx->cond, "dry");
+    // else if (humidity > 90)
+    //     strcpy(rx->cond, "wet");
+    // else
+    if (soil < 30)
+        strcpy(rx->cond, "please water");
+    else if (cds < 12)
+        strcpy(rx->cond, "please light");
+    else
+        strcpy(rx->cond, "good");
+
+    // if (rx->temperature >= 0 && rx->humidity >= 0 && rx->soil >= 0 && rx->sun >= 0)
+    // {
+    //     // 데이터 수신 성공: 구조체 값 출력
+    //     printf("Received serial data:\n");
+    //     printf("  temperature: %d\n", rx->temperature);
+    //     printf("  humidity: %d\n", rx->humidity);
+    //     printf("  soil: %d\n", rx->soil);
+    //     printf("  sun: %d\n", rx->sun);
+    //     printf("  cond: %s\n", rx->cond);
+    // }
+}
+
+// 액츄에이터 제어 메시지 전송
+void send_actuator(struct sp_port *port, const char *message)
+{
+    int tx_bytes;
+
+    if (port != NULL) {
+        tx_bytes = sp_nonblocking_write(port, message, strlen(message));
+        if (tx_bytes > 0){
+            printf("Sent serial data : %s\n", message);
+        }
+        else {
+            printf("Error reading data: %d\n", tx_bytes);
+        }
     }
 }
 
