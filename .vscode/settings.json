@@ -3,5 +3,6 @@
         "delay.h": "c",
         "io.h": "c",
         "farmsql.h": "c"
-    }
+    },
+    "cmake.sourceDirectory": "/home/piri/KUiot1stProject/cProgram"
 }
