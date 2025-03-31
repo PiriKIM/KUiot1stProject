@@ -17,6 +17,8 @@
  #define BackLight 0x08
  
  uint8_t I2C_addr_PCF8574 = (0x27 << 1);
+//  uint8_t I2C_addr_PCF8574 = (0x26 << 1);
+//  uint8_t I2C_addr_PCF8574 = (0x23 << 1);
   
  void i2c_lcd_init(void)
  {

@@ -19,7 +19,7 @@ SELECT
     DATE_FORMAT(RecordTime, '%Y-%m-%d %H:%i:%s') AS RecordTime,
     Temperature, Humidity, SoilMoisture, Sunshine, Cond
 FROM smartfarm_db.data_records
-WHERE RecordTime > '2025-03-29'
+WHERE RecordTime > '2025-03-31'
 ORDER BY RecordTime DESC;
 
 -- 샘플 데이터 삽입 (테스트용)
